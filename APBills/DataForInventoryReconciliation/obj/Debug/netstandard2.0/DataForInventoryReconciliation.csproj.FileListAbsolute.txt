@@ -1,0 +1,9 @@
+E:\_P\S5WebAPI_POC\APBills\DataForInventoryReconciliation\bin\Debug\netstandard2.0\DataForInventoryReconciliation.deps.json
+E:\_P\S5WebAPI_POC\APBills\DataForInventoryReconciliation\bin\Debug\netstandard2.0\DataForInventoryReconciliation.dll
+E:\_P\S5WebAPI_POC\APBills\DataForInventoryReconciliation\obj\Debug\netstandard2.0\DataForInventoryReconciliation.csprojAssemblyReference.cache
+E:\_P\S5WebAPI_POC\APBills\DataForInventoryReconciliation\obj\Debug\netstandard2.0\DataForInventoryReconciliation.AssemblyInfoInputs.cache
+E:\_P\S5WebAPI_POC\APBills\DataForInventoryReconciliation\obj\Debug\netstandard2.0\DataForInventoryReconciliation.AssemblyInfo.cs
+E:\_P\S5WebAPI_POC\APBills\DataForInventoryReconciliation\bin\Debug\netstandard2.0\DataForInventoryReconciliation.pdb
+E:\_P\S5WebAPI_POC\APBills\DataForInventoryReconciliation\obj\Debug\netstandard2.0\DataForInventoryReconciliation.dll
+E:\_P\S5WebAPI_POC\APBills\DataForInventoryReconciliation\obj\Debug\netstandard2.0\DataForInventoryReconciliation.pdb
+E:\_P\S5WebAPI_POC\APBills\DataForInventoryReconciliation\bin\Debug\netstandard2.0\DataForInventoryReconciliation.dll.config

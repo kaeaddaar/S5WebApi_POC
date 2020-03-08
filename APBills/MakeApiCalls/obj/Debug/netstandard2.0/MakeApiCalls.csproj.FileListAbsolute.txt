@@ -1,0 +1,8 @@
+E:\_P\S5WebAPI_POC\APBills\MakeApiCalls\obj\Debug\netstandard2.0\MakeApiCalls.csprojAssemblyReference.cache
+E:\_P\S5WebAPI_POC\APBills\MakeApiCalls\obj\Debug\netstandard2.0\MakeApiCalls.AssemblyInfoInputs.cache
+E:\_P\S5WebAPI_POC\APBills\MakeApiCalls\obj\Debug\netstandard2.0\MakeApiCalls.AssemblyInfo.cs
+E:\_P\S5WebAPI_POC\APBills\MakeApiCalls\bin\Debug\netstandard2.0\MakeApiCalls.deps.json
+E:\_P\S5WebAPI_POC\APBills\MakeApiCalls\bin\Debug\netstandard2.0\MakeApiCalls.dll
+E:\_P\S5WebAPI_POC\APBills\MakeApiCalls\bin\Debug\netstandard2.0\MakeApiCalls.pdb
+E:\_P\S5WebAPI_POC\APBills\MakeApiCalls\obj\Debug\netstandard2.0\MakeApiCalls.dll
+E:\_P\S5WebAPI_POC\APBills\MakeApiCalls\obj\Debug\netstandard2.0\MakeApiCalls.pdb
