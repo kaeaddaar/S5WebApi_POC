@@ -1,0 +1,594 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "title": "Windward APBill API",
+        "description": "Provides APBill API functions to Windward System Five",
+        "license": {
+            "name": "Windward Test License",
+            "url": "http://windwardsoftware.com/license.html"
+        },
+        "version": "6.2.2.21"
+    },
+    "schemes": [
+        "http"
+    ],
+    "securityDefinitions": {
+        "basic": {
+            "type": "basic"
+        }
+    },
+    "security": [
+        {
+            "basic": []
+        }
+    ],
+    "basePath": "/Windward/WebAPI/APBill",
+    "consumes": [
+        "application/json"
+    ],
+    "produces": [
+        "application/json"
+    ],
+    "paths": {
+        "/APBill_Handshake": {
+            "get": {
+                "tags": [
+                    "Bills"
+                ],
+                "description": "confirms connection to the APBill API",
+                "operationId": "APBill_Handshake",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful Request",
+                        "schema": {
+                            "type": "HandshakeRoot"
+                        }
+                    }
+                },
+                "deprecated": false
+            }
+        },
+        "/GetAPBillRecordCount": {
+            "get": {
+                "tags": [
+                    "Bills"
+                ],
+                "description": "Returns the number of APBill records in the database.",
+                "operationId": "getAPBillRecordCount",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful Request",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                },
+                "deprecated": false
+            }
+        },
+        "/APBills/{Number}": {
+            "get": {
+                "tags": [
+                    "Bills"
+                ],
+                "description": "Returns an array of APBIll objects; pass the Unique ID to return a single object. Pass 0 to instruct the system to return all objects. WARNING: Requesting all objects can cause Memory errors, use pagination to control this issue!",
+                "operationId": "getBills",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "Number",
+                        "description": "Internal Unique ID of the APBill object to return; pass 0 to request all APBill objects. See WARNING above!",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "name": "Fields",
+                        "description": "Comma Seperated list of field names to return. Use the values from the Response Model to select the field names.",
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "name": "PageSize",
+                        "description": "The number of objects to return in each page. Passing 0 indicates no pagination. See WARNING above!",
+                        "type": "integer"
+                    },
+                    {
+                        "in": "query",
+                        "name": "PageNumber",
+                        "description": "The Page Number to return, a value greater then 0 required when PageSize is greater than 0.",
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful Request",
+                        "schema": {
+                            "$ref": "#/definitions/APBillsAPIGetResults"
+                        }
+                    }
+                },
+                "schemes": [
+                    "http"
+                ],
+                "deprecated": false
+            }
+        },
+        "/addAPBills": {
+            "post": {
+                "tags": [
+                    "Bills"
+                ],
+                "description": "Accepts one or more APBill Object in an array and if successfully added return the newly created APBill number",
+                "operationId": "addAPBill",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "APBills",
+                        "description": "APBill(s) to insert",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/APBillsInput"
+                        }
+                    },
+                    {
+                        "in": "query",
+                        "name": "Fields",
+                        "description": "Comma Separated list of APBill field names to add to the resposne body",
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful Request",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/APBillsAPIPostResults"
+                            }
+                        }
+                    }
+                },
+                "schemes": [
+                    "http"
+                ],
+                "deprecated": false
+            }
+        }
+    },
+    "definitions": {
+        "BillPayee": {
+            "type": "object",
+            "required": [
+                "ContextUnique",
+                "Location",
+                "Unique",
+                "AName",
+                "State",
+                "StateName",
+                "Country",
+                "CountryName",
+                "Phone_1"
+            ],
+            "properties": {
+                "ContextUnique": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "Location": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "Unique": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "AName": {
+                    "type": "string"
+                },
+                "State": {
+                    "type": "string"
+                },
+                "StateName": {
+                    "type": "string"
+                },
+                "Country": {
+                    "type": "string"
+                },
+                "CountryName": {
+                    "type": "string"
+                },
+                "Phone_1": {
+                    "type": "string"
+                }
+            }
+        },
+        "APBillAddUpdate": {
+            "type": "object",
+            "required": [
+                "EnterTime",
+                "EnterDate",
+                "HeaderInfo",
+                "BillLines",
+                "BillCommentLines"
+            ],
+            "properties": {
+                "Unique": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "EnterTime": {
+                    "type": "number",
+                    "format": "float"
+                },
+                "EnterDate": {
+                    "type": "string",
+                    "format": "date-time"
+                },
+                "HeaderInfo": {
+                    "$ref": "#/definitions/BillHeader"
+                },
+                "BillLines": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/BillLine"
+                    }
+                },
+                "BillCommentLines": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/BillCommentLine"
+                    }
+                }
+            }
+        },
+        "APBills": {
+            "type": "object",
+            "required": [
+                "EnterTime",
+                "EnterDate",
+                "HeaderInfo",
+                "BillLines",
+                "Payee",
+                "Supplier",
+                "BillCommentLines"
+            ],
+            "properties": {
+                "Unique": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "EnterTime": {
+                    "type": "number",
+                    "format": "float"
+                },
+                "EnterDate": {
+                    "type": "string",
+                    "format": "date-time"
+                },
+                "HeaderInfo": {
+                    "$ref": "#/definitions/BillHeader"
+                },
+                "BillLines": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/BillLine"
+                    }
+                },
+                "Payee": {
+                    "$ref": "#/definitions/BillPayee"
+                },
+                "Supplier": {
+                    "$ref": "#/definitions/BillSupplier"
+                },
+                "BillCommentLines": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/BillCommentLine"
+                    }
+                }
+            }
+        },
+        "APBillsInput": {
+            "type": "object",
+            "required": [
+                "ConnectionInfo"
+            ],
+            "properties": {
+                "APBills": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/APBillAddUpdate"
+                    }
+                },
+                "ConnectionInfo": {
+                    "$ref": "#/definitions/ConnectionInfo"
+                }
+            }
+        },
+        "BillCommentLine": {
+            "type": "object",
+            "required": [
+                "CommentLineIndex",
+                "CommentLineData"
+            ],
+            "properties": {
+                "CommentLineIndex": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "CommentLineData": {
+                    "type": "string"
+                }
+            }
+        },
+        "APBillsAPIPostResults": {
+            "type": "object",
+            "properties": {
+                "APBills": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/APBillsActionResults"
+                    }
+                },
+                "APIResponse": {
+                    "$ref": "#/definitions/APIResponse"
+                }
+            }
+        },
+        "ConnectionInfo": {
+            "type": "object",
+            "properties": {
+                "TerminalNumber": {
+                    "type": "integer",
+                    "format": "int32",
+                    "description": "System Five Terminal Number"
+                }
+            }
+        },
+        "APBillsActionResults": {
+            "type": "object",
+            "properties": {
+                "RecordResult": {
+                    "$ref": "#/definitions/APBills"
+                },
+                "RecordId": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "RecordDesc": {
+                    "type": "string"
+                },
+                "ActionResult": {
+                    "type": "string"
+                },
+                "ActionSuccess": {
+                    "type": "boolean"
+                }
+            }
+        },
+        "APIResponse": {
+            "type": "object",
+            "properties": {
+                "IsSuccess": {
+                    "type": "boolean"
+                },
+                "Response": {
+                    "type": "string"
+                },
+                "ElapsedTime": {
+                    "type": "string"
+                },
+                "RecordCount": {
+                    "type": "string"
+                }
+            }
+        },
+        "BillSupplier": {
+            "type": "object",
+            "required": [
+                "ContextUnique",
+                "Location",
+                "Unique",
+                "AName",
+                "State",
+                "StateName",
+                "Country",
+                "CountryName",
+                "Phone_1"
+            ],
+            "properties": {
+                "ContextUnique": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "Location": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "Unique": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "AName": {
+                    "type": "string"
+                },
+                "State": {
+                    "type": "string"
+                },
+                "StateName": {
+                    "type": "string"
+                },
+                "Country": {
+                    "type": "string"
+                },
+                "CountryName": {
+                    "type": "string"
+                },
+                "Phone_1": {
+                    "type": "string"
+                }
+            }
+        },
+        "APBillsAPIGetResults": {
+            "type": "object",
+            "properties": {
+                "APBills": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/APBills"
+                    }
+                },
+                "APIResponse": {
+                    "$ref": "#/definitions/APIResponse"
+                }
+            }
+        },
+        "BillLine": {
+            "type": "object",
+            "required": [
+                "DataDate",
+                "Department",
+                "CurrencyCode",
+                "Supplier",
+                "WholeCurrencyCode",
+                "LedgerAccountName",
+                "CurrencyDate"
+            ],
+            "properties": {
+                "DataDate": {
+                    "type": "string",
+                    "format": "date-time"
+                },
+                "Department": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "CurrencyCode": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "Supplier": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "WholeCurrencyCode": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "LedgerAccount": {
+                    "type": "string"
+                },
+                "LedgerAccountName": {
+                    "type": "string"
+                },
+                "Description": {
+                    "type": "string"
+                },
+                "DbCd": {
+                    "type": "string"
+                },
+                "Amount": {
+                    "type": "number",
+                    "format": "float"
+                },
+                "CurrencyDate": {
+                    "type": "string",
+                    "format": "date-time"
+                }
+            }
+        },
+        "BillHeader": {
+            "type": "object",
+            "required": [
+                "Number",
+                "PO",
+                "Pay",
+                "Supplier",
+                "Total",
+                "Date",
+                "Department",
+                "DueDate"
+            ],
+            "properties": {
+                "Number": {
+                    "type": "string"
+                },
+                "PO": {
+                    "type": "string"
+                },
+                "Description": {
+                    "type": "string"
+                },
+                "Foreign": {
+                    "type": "string"
+                },
+                "Pay": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "Supplier": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "Total": {
+                    "type": "number",
+                    "format": "float"
+                },
+                "Date": {
+                    "type": "string",
+                    "format": "date-time"
+                },
+                "Department": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "DueDate": {
+                    "type": "string",
+                    "format": "date-time"
+                }
+            }
+        },
+        "HandshakeRoot": {
+            "type": "object",
+            "required": [
+                "Result"
+            ],
+            "properties": {
+                "Result": {
+                    "type": "HandshakeResult"
+                }
+            }
+        },
+        "HandshakeResult": {
+            "type":"object",
+            "Required": [
+                "SystemFiveAPBillAPI",
+                "Version"
+            ],
+            "properties": {
+                "SystemFiveAPBillAPI": {
+                    "type": "string"
+                },
+                "Version": {
+                    "type": "string"
+                }
+            }
+        }
+    }
+}

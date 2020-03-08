@@ -52,9 +52,32 @@ namespace APBills
             httpClient.DefaultRequestHeaders.Authorization =
                 new System.Net.Http.Headers.AuthenticationHeaderValue("Basic", Convert.ToBase64String(byteArray));
 
-            DataForInventoryReconciliation.NSWAG.APBillClient aPBillClient = new APBillClient(BaseUrl, httpClient);
-            Rootobject x = aPBillClient.HandshakeAsync().Result;
-            Console.WriteLine(x.result[0].Version);
+            //DataForInventoryReconciliation.NSWAG.APBillClient aPBillClient = new APBillClient(BaseUrl, httpClient);
+            //Rootobject x = aPBillClient.HandshakeAsync().Result;
+            //Console.WriteLine(x.result[0].Version);
+
+            //DataForInventoryReconciliation.NSWAG.Client client = 
+            //    new DataForInventoryReconciliation.NSWAG.Client(BaseUrl, httpClient);
+
+            DataForInventoryReconciliation.NSWAG.APBillClient aPBillClient =
+                new APBillClient(BaseUrl, httpClient);
+
+            object r = aPBillClient.HandshakeAsync().Result;
+            Console.WriteLine(r);
+
+            Console.WriteLine("Done handshake, press any key to continue");
+            Console.ReadKey();
+
+            DataForInventoryReconciliation.NSWAG.Client client =
+                new DataForInventoryReconciliation.NSWAG.Client(BaseUrl, httpClient);
+
+            string number = "0";
+            string? fields = null;
+            int? pageSize = null;
+            int? pageNumber = null;
+
+            APBillsAPIGetResults APBillsResults = client.GetBillsAsync(number, fields, pageSize, pageNumber).Result;
+            Console.WriteLine(APBillsResults.APIResponse);
 
             Console.WriteLine("Done");
             Console.ReadKey();
